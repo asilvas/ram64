@@ -24,6 +24,7 @@
     "test": "jest",
     "watch": "swc src --out-dir lib -w"
   },
+  "keywords": ["cache", "database", "redis", "ram", "ram64", "ram-cache", "ram-database", "memory-cache", "threads", "multi-threading"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/asilvas/ram64.git"
