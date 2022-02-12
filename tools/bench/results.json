@@ -1,0 +1,1133 @@
+[
+  {
+    "name": "concurrency:1,cacheThreads:1,clientThreads:1",
+    "options": {
+      "concurrency": 1,
+      "cacheThreads": 1,
+      "clientThreads": 1
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 2964,
+      "rate": 33738.19163292847,
+      "latency": 0.029640000000000003,
+      "count": 1
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 2676,
+      "rate": 37369.20777279521,
+      "latency": 0.026760000000000003,
+      "count": 1
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 2692,
+      "rate": 37147.10252600297,
+      "latency": 0.02692,
+      "count": 1
+    }
+  },
+  {
+    "name": "concurrency:4,cacheThreads:4,clientThreads:1",
+    "options": {
+      "concurrency": 4,
+      "cacheThreads": 4,
+      "clientThreads": 1
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1100,
+      "rate": 90909.0909090909,
+      "latency": 0.011000000000000001,
+      "count": 1
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1050,
+      "rate": 95238.09523809524,
+      "latency": 0.0105,
+      "count": 1
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1116,
+      "rate": 89605.73476702507,
+      "latency": 0.011160000000000002,
+      "count": 1
+    }
+  },
+  {
+    "name": "concurrency:8,cacheThreads:8,clientThreads:1",
+    "options": {
+      "concurrency": 8,
+      "cacheThreads": 8,
+      "clientThreads": 1
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1049,
+      "rate": 95328.88465204957,
+      "latency": 0.01049,
+      "count": 1
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 994,
+      "rate": 100603.62173038229,
+      "latency": 0.009940000000000001,
+      "count": 1
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1023,
+      "rate": 97751.71065493647,
+      "latency": 0.01023,
+      "count": 1
+    }
+  },
+  {
+    "name": "concurrency:16,cacheThreads:16,clientThreads:1",
+    "options": {
+      "concurrency": 16,
+      "cacheThreads": 16,
+      "clientThreads": 1
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1295,
+      "rate": 77220.07722007722,
+      "latency": 0.01295,
+      "count": 1
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1266,
+      "rate": 78988.94154818325,
+      "latency": 0.01266,
+      "count": 1
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1332,
+      "rate": 75075.07507507507,
+      "latency": 0.01332,
+      "count": 1
+    }
+  },
+  {
+    "name": "concurrency:32,cacheThreads:32,clientThreads:1",
+    "options": {
+      "concurrency": 32,
+      "cacheThreads": 32,
+      "clientThreads": 1
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1115,
+      "rate": 89686.09865470852,
+      "latency": 0.01115,
+      "count": 1
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1127,
+      "rate": 88731.14463176575,
+      "latency": 0.011269999999999999,
+      "count": 1
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1058,
+      "rate": 94517.95841209829,
+      "latency": 0.01058,
+      "count": 1
+    }
+  },
+  {
+    "name": "concurrency:1,cacheThreads:1,clientThreads:4",
+    "options": {
+      "concurrency": 1,
+      "cacheThreads": 1,
+      "clientThreads": 4
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 4411.5,
+      "rate": 90741.3958243894,
+      "latency": 0.044115,
+      "count": 4
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 4038,
+      "rate": 99188.75539011417,
+      "latency": 0.04038,
+      "count": 4
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 3968,
+      "rate": 100903.22495157838,
+      "latency": 0.03968000000000001,
+      "count": 4
+    }
+  },
+  {
+    "name": "concurrency:4,cacheThreads:4,clientThreads:4",
+    "options": {
+      "concurrency": 4,
+      "cacheThreads": 4,
+      "clientThreads": 4
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1267.5,
+      "rate": 315607.52341894445,
+      "latency": 0.012675,
+      "count": 4
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1165.25,
+      "rate": 343274.6540693334,
+      "latency": 0.0116525,
+      "count": 4
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1218,
+      "rate": 328426.04351251613,
+      "latency": 0.01218,
+      "count": 4
+    }
+  },
+  {
+    "name": "concurrency:8,cacheThreads:8,clientThreads:4",
+    "options": {
+      "concurrency": 8,
+      "cacheThreads": 8,
+      "clientThreads": 4
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1069.25,
+      "rate": 374148.45754779223,
+      "latency": 0.010692499999999999,
+      "count": 4
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1051.75,
+      "rate": 380332.07908227737,
+      "latency": 0.010517499999999999,
+      "count": 4
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1130.5,
+      "rate": 354018.7291774042,
+      "latency": 0.011304999999999999,
+      "count": 4
+    }
+  },
+  {
+    "name": "concurrency:16,cacheThreads:16,clientThreads:4",
+    "options": {
+      "concurrency": 16,
+      "cacheThreads": 16,
+      "clientThreads": 4
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1059.5,
+      "rate": 377546.77388127515,
+      "latency": 0.010595,
+      "count": 4
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1067.25,
+      "rate": 374799.716791985,
+      "latency": 0.0106725,
+      "count": 4
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1112.75,
+      "rate": 359519.62874065817,
+      "latency": 0.0111275,
+      "count": 4
+    }
+  },
+  {
+    "name": "concurrency:32,cacheThreads:32,clientThreads:4",
+    "options": {
+      "concurrency": 32,
+      "cacheThreads": 32,
+      "clientThreads": 4
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1154,
+      "rate": 346823.2737942855,
+      "latency": 0.01154,
+      "count": 4
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1102.25,
+      "rate": 362943.3450776313,
+      "latency": 0.011022500000000001,
+      "count": 4
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1136.75,
+      "rate": 351985.8127822329,
+      "latency": 0.011367500000000001,
+      "count": 4
+    }
+  },
+  {
+    "name": "concurrency:1,cacheThreads:1,clientThreads:8",
+    "options": {
+      "concurrency": 1,
+      "cacheThreads": 1,
+      "clientThreads": 8
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 7603.125,
+      "rate": 105222.89852753011,
+      "latency": 0.07603125,
+      "count": 8
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 7384.875,
+      "rate": 108337.55625147816,
+      "latency": 0.07384875,
+      "count": 8
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 7069.5,
+      "rate": 113172.43726416926,
+      "latency": 0.07069500000000001,
+      "count": 8
+    }
+  },
+  {
+    "name": "concurrency:4,cacheThreads:4,clientThreads:8",
+    "options": {
+      "concurrency": 4,
+      "cacheThreads": 4,
+      "clientThreads": 8
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 2040.875,
+      "rate": 392528.3666822115,
+      "latency": 0.02040875,
+      "count": 8
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1764.875,
+      "rate": 454551.6532473977,
+      "latency": 0.017648749999999998,
+      "count": 8
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1719.375,
+      "rate": 466587.4014833251,
+      "latency": 0.01719375,
+      "count": 8
+    }
+  },
+  {
+    "name": "concurrency:8,cacheThreads:8,clientThreads:8",
+    "options": {
+      "concurrency": 8,
+      "cacheThreads": 8,
+      "clientThreads": 8
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1339,
+      "rate": 605956.6058944911,
+      "latency": 0.013389999999999999,
+      "count": 8
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1238.125,
+      "rate": 662557.8464743352,
+      "latency": 0.01238125,
+      "count": 8
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1363.75,
+      "rate": 595985.4011759025,
+      "latency": 0.0136375,
+      "count": 8
+    }
+  },
+  {
+    "name": "concurrency:16,cacheThreads:16,clientThreads:8",
+    "options": {
+      "concurrency": 16,
+      "cacheThreads": 16,
+      "clientThreads": 8
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1159.625,
+      "rate": 709610.4519632945,
+      "latency": 0.011596249999999999,
+      "count": 8
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1164.25,
+      "rate": 711190.4290216252,
+      "latency": 0.0116425,
+      "count": 8
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1243.125,
+      "rate": 660596.0291997688,
+      "latency": 0.012431250000000001,
+      "count": 8
+    }
+  },
+  {
+    "name": "concurrency:32,cacheThreads:32,clientThreads:8",
+    "options": {
+      "concurrency": 32,
+      "cacheThreads": 32,
+      "clientThreads": 8
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1247.375,
+      "rate": 655609.4192664112,
+      "latency": 0.012473749999999999,
+      "count": 8
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1228,
+      "rate": 668904.6764563883,
+      "latency": 0.01228,
+      "count": 8
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1221,
+      "rate": 660867.0704404379,
+      "latency": 0.01221,
+      "count": 8
+    }
+  },
+  {
+    "name": "concurrency:1,cacheThreads:1,clientThreads:16",
+    "options": {
+      "concurrency": 1,
+      "cacheThreads": 1,
+      "clientThreads": 16
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 15574.375,
+      "rate": 102736.8956373914,
+      "latency": 0.15574375000000001,
+      "count": 16
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 14664.5,
+      "rate": 109209.50999361361,
+      "latency": 0.146645,
+      "count": 16
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 14253.3125,
+      "rate": 112276.2860637372,
+      "latency": 0.14253312500000004,
+      "count": 16
+    }
+  },
+  {
+    "name": "concurrency:4,cacheThreads:4,clientThreads:16",
+    "options": {
+      "concurrency": 4,
+      "cacheThreads": 4,
+      "clientThreads": 16
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 4637.9375,
+      "rate": 345156.80960631033,
+      "latency": 0.046379375,
+      "count": 16
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 4202.875,
+      "rate": 382310.7617518315,
+      "latency": 0.042028750000000004,
+      "count": 16
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 3776.4375,
+      "rate": 423827.88224030216,
+      "latency": 0.037764374999999996,
+      "count": 16
+    }
+  },
+  {
+    "name": "concurrency:8,cacheThreads:8,clientThreads:16",
+    "options": {
+      "concurrency": 8,
+      "cacheThreads": 8,
+      "clientThreads": 16
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 2272.3125,
+      "rate": 704718.91718406,
+      "latency": 0.022723125,
+      "count": 16
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 2722.4375,
+      "rate": 588131.1162167902,
+      "latency": 0.027224375,
+      "count": 16
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 2018.9375,
+      "rate": 793607.4175358689,
+      "latency": 0.020189374999999996,
+      "count": 16
+    }
+  },
+  {
+    "name": "concurrency:16,cacheThreads:16,clientThreads:16",
+    "options": {
+      "concurrency": 16,
+      "cacheThreads": 16,
+      "clientThreads": 16
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1371.25,
+      "rate": 1180846.2301295197,
+      "latency": 0.013712499999999999,
+      "count": 16
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1288.3125,
+      "rate": 1276372.7353663472,
+      "latency": 0.012883124999999999,
+      "count": 16
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1412.9375,
+      "rate": 1147279.6185402018,
+      "latency": 0.014129375000000001,
+      "count": 16
+    }
+  },
+  {
+    "name": "concurrency:32,cacheThreads:32,clientThreads:16",
+    "options": {
+      "concurrency": 32,
+      "cacheThreads": 32,
+      "clientThreads": 16
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1461.25,
+      "rate": 1104497.9027611502,
+      "latency": 0.0146125,
+      "count": 16
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1370.3125,
+      "rate": 1185992.9145348442,
+      "latency": 0.013703125,
+      "count": 16
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 1432.4375,
+      "rate": 1120166.0695018016,
+      "latency": 0.014324375000000002,
+      "count": 16
+    }
+  },
+  {
+    "name": "concurrency:1,cacheThreads:1,clientThreads:32",
+    "options": {
+      "concurrency": 1,
+      "cacheThreads": 1,
+      "clientThreads": 32
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 32364.40625,
+      "rate": 98874.85029614402,
+      "latency": 0.3236440625,
+      "count": 32
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 30204.03125,
+      "rate": 105964.64871056577,
+      "latency": 0.30204031249999996,
+      "count": 32
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 29973.25,
+      "rate": 106765.29977671303,
+      "latency": 0.2997325,
+      "count": 32
+    }
+  },
+  {
+    "name": "concurrency:4,cacheThreads:4,clientThreads:32",
+    "options": {
+      "concurrency": 4,
+      "cacheThreads": 4,
+      "clientThreads": 32
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 6922.59375,
+      "rate": 462291.9727389956,
+      "latency": 0.0692259375,
+      "count": 32
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 6256.59375,
+      "rate": 512023.05573843553,
+      "latency": 0.0625659375,
+      "count": 32
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 6044.125,
+      "rate": 529527.1942674731,
+      "latency": 0.060441249999999995,
+      "count": 32
+    }
+  },
+  {
+    "name": "concurrency:8,cacheThreads:8,clientThreads:32",
+    "options": {
+      "concurrency": 8,
+      "cacheThreads": 8,
+      "clientThreads": 32
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 4686.75,
+      "rate": 682833.245831537,
+      "latency": 0.04686749999999999,
+      "count": 32
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 4315.6875,
+      "rate": 742283.5493862513,
+      "latency": 0.04315687499999998,
+      "count": 32
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 4089.125,
+      "rate": 784466.0610006932,
+      "latency": 0.04089125,
+      "count": 32
+    }
+  },
+  {
+    "name": "concurrency:16,cacheThreads:16,clientThreads:32",
+    "options": {
+      "concurrency": 16,
+      "cacheThreads": 16,
+      "clientThreads": 32
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 2495,
+      "rate": 1283255.6858453476,
+      "latency": 0.02495,
+      "count": 32
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 2223.625,
+      "rate": 1439606.1202663425,
+      "latency": 0.022236250000000003,
+      "count": 32
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 2317.125,
+      "rate": 1382897.15627432,
+      "latency": 0.023171250000000004,
+      "count": 32
+    }
+  },
+  {
+    "name": "concurrency:32,cacheThreads:32,clientThreads:32",
+    "options": {
+      "concurrency": 32,
+      "cacheThreads": 32,
+      "clientThreads": 32
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 1947.5,
+      "rate": 1646532.5470988317,
+      "latency": 0.019474999999999996,
+      "count": 32
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1801.09375,
+      "rate": 1778284.397937033,
+      "latency": 0.0180109375,
+      "count": 32
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 2083.59375,
+      "rate": 1536667.6971245322,
+      "latency": 0.0208359375,
+      "count": 32
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:64,clientThreads:32",
+    "options": {
+      "concurrency": 64,
+      "cacheThreads": 64,
+      "clientThreads": 32
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 2131.90625,
+      "rate": 1504477.7478758846,
+      "latency": 0.021319062500000003,
+      "count": 32
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 1917.3125,
+      "rate": 1673848.3878005266,
+      "latency": 0.019173125000000006,
+      "count": 32
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 2275.1875,
+      "rate": 1409064.1363963732,
+      "latency": 0.022751875,
+      "count": 32
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:64,clientThreads:64",
+    "options": {
+      "concurrency": 64,
+      "cacheThreads": 64,
+      "clientThreads": 64
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 3166.25,
+      "rate": 2024289.6535040783,
+      "latency": 0.0316625,
+      "count": 64
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 3078.796875,
+      "rate": 2080093.8224173794,
+      "latency": 0.03078796875000001,
+      "count": 64
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 3047.3125,
+      "rate": 2103442.7284217156,
+      "latency": 0.030473125,
+      "count": 64
+    }
+  },
+  {
+    "name": "concurrency:128,cacheThreads:64,clientThreads:64",
+    "options": {
+      "concurrency": 128,
+      "cacheThreads": 64,
+      "clientThreads": 64
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 5093.75,
+      "rate": 1258387.0209485118,
+      "latency": 0.050937500000000004,
+      "count": 64
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 4565.890625,
+      "rate": 1408801.2734477352,
+      "latency": 0.04565890624999999,
+      "count": 64
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 3515.390625,
+      "rate": 1835486.1371834748,
+      "latency": 0.035153906250000005,
+      "count": 64
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:128,clientThreads:64",
+    "options": {
+      "concurrency": 64,
+      "cacheThreads": 128,
+      "clientThreads": 64
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 3328.09375,
+      "rate": 1923872.6269805962,
+      "latency": 0.03328093750000002,
+      "count": 64
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 3043.703125,
+      "rate": 2104167.267950849,
+      "latency": 0.03043703125,
+      "count": 64
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 3084.640625,
+      "rate": 2076001.9470539042,
+      "latency": 0.03084640625,
+      "count": 64
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:64,clientThreads:128",
+    "options": {
+      "concurrency": 64,
+      "cacheThreads": 64,
+      "clientThreads": 128
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 5910.1484375,
+      "rate": 2176855.596189184,
+      "latency": 0.059101484374999985,
+      "count": 128
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 5505.0703125,
+      "rate": 2330249.564476445,
+      "latency": 0.05505070312500002,
+      "count": 128
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 4309.015625,
+      "rate": 2981614.0044378983,
+      "latency": 0.04309015625000001,
+      "count": 128
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:128,clientThreads:128",
+    "options": {
+      "concurrency": 64,
+      "cacheThreads": 128,
+      "clientThreads": 128
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 6165.171875,
+      "rate": 2145370.7206496214,
+      "latency": 0.06165171875000001,
+      "count": 128
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 5802.4453125,
+      "rate": 2210594.6630835664,
+      "latency": 0.05802445312499998,
+      "count": 128
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 4513.828125,
+      "rate": 2851052.526132013,
+      "latency": 0.04513828125000001,
+      "count": 128
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:192,clientThreads:192",
+    "options": {
+      "concurrency": 64,
+      "cacheThreads": 192,
+      "clientThreads": 192
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 9703.90625,
+      "rate": 2027160.5909001494,
+      "latency": 0.09703906250000004,
+      "count": 192
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 8190.390625,
+      "rate": 2354684.481618877,
+      "latency": 0.08190390624999999,
+      "count": 192
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 6654.229166666667,
+      "rate": 3002123.738262663,
+      "latency": 0.06654229166666664,
+      "count": 192
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:256,clientThreads:256",
+    "options": {
+      "concurrency": 64,
+      "cacheThreads": 256,
+      "clientThreads": 256
+    },
+    "ram64.set": {
+      "name": "set",
+      "duration": 12840.484375,
+      "rate": 2351652.237716113,
+      "latency": 0.12840484375000005,
+      "count": 256
+    },
+    "ram64.get": {
+      "name": "get",
+      "duration": 12096.953125,
+      "rate": 2225681.8609606153,
+      "latency": 0.12096953125000001,
+      "count": 256
+    },
+    "ram64.del": {
+      "name": "del",
+      "duration": 9813.20703125,
+      "rate": 2755580.647567637,
+      "latency": 0.09813207031250003,
+      "count": 256
+    }
+  },
+  {
+    "name": "concurrency:1,cacheThreads:1,clientThreads:1,redis:true",
+    "options": {
+      "concurrency": 1,
+      "clientThreads": 1,
+      "redis": true
+    },
+    "redis.set": {
+      "name": "set",
+      "duration": 31311,
+      "rate": 3193.7657692184857,
+      "latency": 0.31311,
+      "count": 1
+    },
+    "redis.get": {
+      "name": "get",
+      "duration": 29833,
+      "rate": 3351.992759695639,
+      "latency": 0.29833,
+      "count": 1
+    },
+    "redis.del": {
+      "name": "del",
+      "duration": 28647,
+      "rate": 3490.7669214926523,
+      "latency": 0.28646999999999995,
+      "count": 1
+    }
+  },
+  {
+    "name": "concurrency:4,cacheThreads:1,clientThreads:4,redis:true",
+    "options": {
+      "concurrency": 4,
+      "clientThreads": 4,
+      "redis": true
+    },
+    "redis.set": {
+      "name": "set",
+      "duration": 16359.25,
+      "rate": 24452.77822983727,
+      "latency": 0.1635925,
+      "count": 4
+    },
+    "redis.get": {
+      "name": "get",
+      "duration": 16062.5,
+      "rate": 24908.88941402757,
+      "latency": 0.160625,
+      "count": 4
+    },
+    "redis.del": {
+      "name": "del",
+      "duration": 15599.75,
+      "rate": 25641.974697815607,
+      "latency": 0.15599749999999998,
+      "count": 4
+    }
+  },
+  {
+    "name": "concurrency:8,cacheThreads:1,clientThreads:8,redis:true",
+    "options": {
+      "concurrency": 8,
+      "clientThreads": 8,
+      "redis": true
+    },
+    "redis.set": {
+      "name": "set",
+      "duration": 16777.875,
+      "rate": 47726.35670248335,
+      "latency": 0.16777875,
+      "count": 8
+    },
+    "redis.get": {
+      "name": "get",
+      "duration": 16611,
+      "rate": 48209.64135879075,
+      "latency": 0.16610999999999998,
+      "count": 8
+    },
+    "redis.del": {
+      "name": "del",
+      "duration": 15256,
+      "rate": 52469.91308527581,
+      "latency": 0.15256,
+      "count": 8
+    }
+  },
+  {
+    "name": "concurrency:16,cacheThreads:1,clientThreads:16,redis:true",
+    "options": {
+      "concurrency": 16,
+      "clientThreads": 16,
+      "redis": true
+    },
+    "redis.set": {
+      "name": "set",
+      "duration": 15620.375,
+      "rate": 103346.74990809761,
+      "latency": 0.15620374999999997,
+      "count": 16
+    },
+    "redis.get": {
+      "name": "get",
+      "duration": 15610.5625,
+      "rate": 102656.49273116005,
+      "latency": 0.156105625,
+      "count": 16
+    },
+    "redis.del": {
+      "name": "del",
+      "duration": 14403.25,
+      "rate": 111328.69259881103,
+      "latency": 0.14403249999999998,
+      "count": 16
+    }
+  },
+  {
+    "name": "concurrency:32,cacheThreads:1,clientThreads:32,redis:true",
+    "options": {
+      "concurrency": 32,
+      "clientThreads": 32,
+      "redis": true
+    },
+    "redis.set": {
+      "name": "set",
+      "duration": 15401.9375,
+      "rate": 209192.03587527116,
+      "latency": 0.15401937500000001,
+      "count": 32
+    },
+    "redis.get": {
+      "name": "get",
+      "duration": 15181.4375,
+      "rate": 211119.31706169096,
+      "latency": 0.15181437500000003,
+      "count": 32
+    },
+    "redis.del": {
+      "name": "del",
+      "duration": 13681.78125,
+      "rate": 234642.42255260088,
+      "latency": 0.13681781249999997,
+      "count": 32
+    }
+  },
+  {
+    "name": "concurrency:64,cacheThreads:1,clientThreads:64,redis:true",
+    "options": {
+      "concurrency": 64,
+      "clientThreads": 64,
+      "redis": true
+    },
+    "redis.set": {
+      "name": "set",
+      "duration": 18962.328125,
+      "rate": 342249.5209445357,
+      "latency": 0.18962328125000003,
+      "count": 64
+    },
+    "redis.get": {
+      "name": "get",
+      "duration": 15032.5,
+      "rate": 426203.0461469652,
+      "latency": 0.150325,
+      "count": 64
+    },
+    "redis.del": {
+      "name": "del",
+      "duration": 13336.578125,
+      "rate": 480772.0042098724,
+      "latency": 0.13336578124999998,
+      "count": 64
+    }
+  }
+]

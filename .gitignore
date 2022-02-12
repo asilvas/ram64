@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+report.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -81,6 +82,7 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+lib
 
 # Gatsby files
 .cache/
@@ -102,3 +104,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+_misc
+tools/bench/save

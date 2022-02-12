@@ -1,0 +1,18 @@
+{
+    "test": ".*.ts$",
+    "exclude": ["node_modules", "tools", ".*.js$"],
+    "sourceMaps": true,
+    "jsc": {
+        "target": "es2022",
+        "parser": {
+            "syntax": "typescript"
+        }
+    },
+    "module": {
+        "type": "commonjs",
+        "strict": true,
+        "strictMode": true,
+        "lazy": false,
+        "noInterop": false
+      }
+}
