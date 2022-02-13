@@ -267,7 +267,6 @@ await ram64.setWithOptions(key, { value: 1, staleAt: Date.now() + 1000 })`
 Unlike **expired** objects, stale objects are never actually removed from the shard.
 If an object is stale, it can only be auto-updated out of band of reads, like so:
 
-getAndSet(key: string, staleFn: (obj: CacheObject) => Promise<CacheObject>): Promise<CacheObject|undefined>
 ```
 const staleCache = await ram64.getAndSet('myKey', async cacheObject => {
   // perform some async task to get the data
