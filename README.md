@@ -1,6 +1,6 @@
 # ram64
 
-[![NPM](https://nodei.co/npm/ram64.png?mini=true)](https://nodei.co/npm/ram64/) [![Build Status](https://app.travis-ci.com/asilvas/ram64.svg?branch=master)](https://app.travis-ci.com/asilvas/ram64)
+[![NPM](https://nodei.co/npm/ram64.png?mini=true)](https://nodei.co/npm/ram64/) [![Build Status](https://app.travis-ci.com/asilvas/ram64.svg?branch=main)](https://app.travis-ci.com/asilvas/ram64)
 
 Multi-threaded 64bit memory cache database inspired by Redis-like features. Currently only supports **nodejs**, but
 could potentially support **deno** and **web** in the future.
