@@ -87,18 +87,18 @@ connect(workerData.connectKey).then(async ram64 => {
 ## Exports
 
 * `startup(StartupOptions): Promise<RAM64>` - Create a new `RAM64` instance.
-  * `StartupOptions.threadCount` (default: `CPU_CORES`) - Number of dedicated
+  * `StartupOptions.threadCount: number` (default: `CPU_CORES`) - Number of dedicated
     cache workers to spread load/shards over. Tunable based on your usage, but
     default should generally suffice.
-  * `StartupOptions.shardCount` (default `4096`) - The default is typically
+  * `StartupOptions.shardCount: number` (default `4096`) - The default is typically
     sufficient to handle any memory requirements of 2TB and beyond.
-  * `StartupOptions.maxMemory` - By default **LRU Eviction**
+  * `StartupOptions.maxMemory: number` - By default **LRU Eviction**
     is not enabled. You must specify a `maxMemory` threshold (in bytes) in
     order for **LRU Eviction** to maintain the desired memory usage across
     the entire process.
 * `connect(connectKey: string): Promise<RAM64>` - Connect to an existing
     `RAM64` instance from a worker thread.
-  * `connectKey` - Required to connect to an existing `RAM64` instance.
+  * `connectKey: string` - Required to connect to an existing `RAM64` instance.
 * `isRAM64Message(msg): boolean` - Useful if you need to distinguish between
   `Worker` messages from `RAM64` and your own custom messages.
 * `RAMFunction` - See `RAMFunction API`.
@@ -203,6 +203,24 @@ Methods and properties of the `RAM64` class. All operations are atomic.
   in the `Map`.
 * `mapHasKey(key: string, mapKey: string): Promise<boolean>` - Returns `true` if
   the key exists in the `Map`.
+* `scan({ limit = 1000, filter, resumeKey, resumeCb }: ScanOptions = {}): Promise<ScanResult>`
+  - Scan and optionally filter keys across all workers and shards. Scanning
+  is a heavier operation than most and is expected to reduce throughput of
+  other operations while in progress. See **Scanning** for example usage.
+  * `ScanOptions.limit: number` (default: `1000`) - The maximum number of keys
+    to return in one `scan`. If utilizing `resumeCb` all keys will be returned
+    regardless of `limit` since the limit only applies to a single `scan`.
+  * `ScanOptions.resumeKey: string` - If you're invoking one scan manually without
+    `resumeCb` you can supply the `resumeKey` provided in the `ScanResult` response
+    to resume where you left off.
+  * `ScanOptions.filter: RegExp|RAMFunction` - Optionally filter keys based on
+    a regular expression or `RAMFunction`. Only truthy filter matches will count
+    against the `limit` of keys returned.
+  * `ScanOptions.resumeCb: (lastResult: ScanResult) => Promise<boolean>` -
+    Instead of calling `scan` once per `resumeKey`, optionally you can use `resumeCb`
+    callback function to evaluate the last result and determine asynchronously
+    if scanning should continue. Supplying `resumeCb: () => Promise.resolve(true)`
+    will result in returning all keys across all shards.
 
 
 ## RAMFunction API
@@ -289,3 +307,71 @@ small penality to performance once **LRU Eviction** is enabled.
 If `maxMemory` is supplied, be sure it accounts for all needed process memory needed
 as `ram64` will evict based on the total memory footprint. Monitoring memory usage
 of actual cache data would significantly degrade performance.
+
+
+## Scanning
+
+A number of scanning patterns are supported to meet various usages.
+
+### Scan all keys
+
+If all you care about is fetching all keys as quickly and easily as possible, here
+you go:
+
+```
+const { keys } = await ram64.scan({ resumeCb: () => Promise.resolve(true) });
+```
+
+### Scan with conditional callback
+
+If you're looking to make some decision in the scanning process, that too can be
+achieved via the `resumeCb` option:
+
+```
+const scanTime = Date.now();
+const { keys } = await ram64.scan({
+  resumeCb: async lastResult => {
+    return (Date.now() - scanTime) < 60000; // halt scanning if we've exceeded 1min
+  }
+});
+```
+
+
+### Incremental scanning
+
+Or if you prefer to handle each scan operation manually, you'll need to leverage
+the `resumeKey` like so:
+
+```
+let result;
+let keys = [];
+do {
+  result = await ram64.scan({ resumeKey: result?.resumeKey });
+  keys = keys.concat(result.keys);
+} while (result.resumeKey);
+```
+
+### Scan filters
+
+When it comes to (optionally) filtering keys you can supply a `RegExp` or `RAMFunction`:
+
+```
+const { keys } = await ram64.scan({
+  filter: /0$/, // return all keys that end in zero
+  resumeCb: () => Promise.resolve(true) // grab everything
+});
+```
+
+Or dynamic functions like so:
+
+```
+const evensAndOddsFn = RAMFunction.fromString(`
+    return params?.shardIndex % 2 === 0 ? Number(params?.key || 0) % 2 === 0 : Number(params?.key || 0) % 2 === 1;
+`);
+await ram64.registerFunction(evensAndOddsFn); // cache workers won't know about the fn unless registered
+
+const { keys } = await ram64.scan({
+  filter: evensAndOddsFn, // return all even keys on even shards and odd keys on odd shards
+  resumeCb: () => Promise.resolve(true) // grab everything
+});
+```

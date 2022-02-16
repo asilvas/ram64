@@ -63,7 +63,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "farmhash": "^3.2.2"
+    "farmhash": "^3.2.2",
+    "tiny-lru": "^8.0.1"
   },
   "optionalDependencies": {
     "@swc/core-linux-x64-gnu": "^1.2.139"

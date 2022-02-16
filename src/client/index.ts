@@ -2,7 +2,7 @@ import { Worker, MessagePort } from 'worker_threads';
 import { commandsDict } from '../commands';
 import { processRequest } from './process-request';
 import { getHash } from '../util/hash';
-import { CacheOptions, CacheObject, MessageToMain } from '../types';
+import { CacheObject, CacheOptions, MessageToMain, ScanOptions, ScanResult } from '../types';
 import { processServerRequest } from './process-server-request';
 import { processResponse } from './process-response';
 import { RAMFunction } from '../ram-function';
@@ -365,4 +365,29 @@ export class RAM64 {
         }) as Promise<number>;
     }
 
+    async scan({ limit = 1000, filter, resumeKey, resumeCb }: ScanOptions = {}): Promise<ScanResult> {
+        const handler = (resumeKey?: string) => {
+            return processRequest(this, {
+                commandIndex: commandsDict.scan.index,
+                workerOrPort: !resumeKey ? this.workerPorts[0] : undefined, // only use first worker if no resume key
+                resumeKey,
+                args: {
+                    limit: Math.max(10, Math.min(limit, 10000)),
+                    resumeKey,
+                    filterExp: filter instanceof RegExp && filter,
+                    filterFn: filter instanceof RAMFunction && filter.id
+                }
+            });
+        };
+
+        let lastResult: ScanResult;
+        let allKeys: string[] = [];
+        do {
+            lastResult = await handler(resumeKey) as ScanResult;
+            allKeys = allKeys.concat(lastResult.keys);
+            resumeKey = lastResult.resumeKey;
+        } while (resumeCb && lastResult.resumeKey && await resumeCb(lastResult));
+
+        return { keys: allKeys, resumeKey: lastResult.resumeKey };
+    }
 }

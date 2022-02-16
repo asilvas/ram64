@@ -37,6 +37,7 @@ export const commandsDict: Commands = {
     'get': { index: commandIndex++ },
     'getSet': { index: commandIndex++ },
     'getWithOptions': { index: commandIndex++ },
+    'scan': { index: commandIndex++ },
     // writes
     'touch': { index: commandIndex++ },
     'set': { index: commandIndex++ },

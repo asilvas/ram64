@@ -1,3 +1,5 @@
+import { RAMFunction } from "./ram-function";
+
 export type Shard = {
     index: number;
     shardIndex: number;
@@ -11,6 +13,8 @@ export type StartupOptions = {
 
 export type WorkerData = {
     connectKey: string;
+    workerIndex: number;
+    workerCount: number;
     shardIndex: number;
     shardsPerThread: number;
     shardCount: number;
@@ -59,4 +63,16 @@ export type CacheOptions = {
 
 export interface CacheObject extends CacheOptions {
     value: any;
+}
+
+export type ScanOptions = {
+    limit?: number;
+    filter?: RegExp|RAMFunction;
+    resumeCb?: (lastResult: ScanResult) => Promise<boolean>;
+    resumeKey?: string;
+}
+
+export type ScanResult = {
+    keys: string[];
+    resumeKey?: string;
 }

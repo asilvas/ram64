@@ -26,9 +26,11 @@ export async function startup({ threadCount = CPU_COUNT, shardCount = DEFAULT_SH
 
     const promise: Promise<RAM64> = new Promise((resolve, reject) => {
         // create workers
-        const workers = Array.from({ length: threadCount }).map((v, shardIndex) => createWorker({
+        const workers = Array.from({ length: threadCount }).map((v, workerIndex) => createWorker({
             connectKey,
-            shardIndex,
+            workerIndex,
+            workerCount: threadCount,
+            shardIndex: (workerIndex * shardsPerThread),
             shardsPerThread,
             shardCount,
             maxMemory

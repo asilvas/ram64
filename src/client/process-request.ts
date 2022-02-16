@@ -17,6 +17,7 @@ export type Request = {
     commandIndex: number;
     workerOrPort?: Worker|MessagePort;
     key?: string;
+    resumeKey?: string;
     keys?: Array<string>;
     args?: any;    
 }
@@ -26,9 +27,9 @@ export async function processRequest(instance: RAM64, req: Request|MessageToMain
         return; // ignore, not for us
     }
 
-    let { workerOrPort, key, keys, commandIndex, args }: Request = req as Request;
+    let { workerOrPort, key, resumeKey, keys, commandIndex, args }: Request = req as Request;
 
-    if (!workerOrPort && !key) { // if no worker or key are specified, then we're dealing with a broadcast
+    if (!workerOrPort && !key && !resumeKey) { // if no worker or key are specified, then we're dealing with a broadcast
         if (keys) {
             return Promise.all(keys.map(key => processRequest(instance, { key, commandIndex, args })));
         } else {
@@ -38,6 +39,8 @@ export async function processRequest(instance: RAM64, req: Request|MessageToMain
 
     if (!workerOrPort && key !== undefined) {
         workerOrPort = instance.getPortFromHash(getHash(key));
+    } else if (!workerOrPort && resumeKey !== undefined) {
+        workerOrPort = instance.workerPorts[Number(resumeKey.split(':')[0])];
     }
     if (!workerOrPort) throw new Error(`Port not found from '${key}' key`);
 

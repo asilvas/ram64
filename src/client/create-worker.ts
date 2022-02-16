@@ -1,8 +1,10 @@
 import { Worker } from 'worker_threads';
 import { WorkerData } from '../types';
 
-export type CreateWorkerOptions = {
+export type CreateWorkerOptions = {    
     connectKey: string;
+    workerIndex: number;
+    workerCount: number;
     shardIndex: number;
     shardsPerThread: number;
     shardCount: number;
@@ -11,6 +13,8 @@ export type CreateWorkerOptions = {
 
 export function createWorker({
     connectKey,
+    workerIndex,
+    workerCount,
     shardIndex,
     shardsPerThread,
     shardCount,
@@ -18,6 +22,8 @@ export function createWorker({
 }: CreateWorkerOptions): Worker {
     const workerData: WorkerData = {
         connectKey,
+        workerIndex,
+        workerCount,
         shardIndex,
         shardsPerThread,
         shardCount,
