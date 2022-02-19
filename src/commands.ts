@@ -69,6 +69,7 @@ export const commandsDict: Commands = {
     'setHasMembers': { index: commandIndex++ },
     // maps
     'mapGetKeys': { index: commandIndex++ },
+    'mapGetValues': { index: commandIndex++ },
     'mapGetFields': { index: commandIndex++ },
     'mapAddFields': { index: commandIndex++ },
     'mapRemoveKeys': { index: commandIndex++ },

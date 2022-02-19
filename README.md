@@ -193,6 +193,8 @@ Methods and properties of the `RAM64` class. All operations are atomic.
   the number of matched members.
 * `mapGetKeys(key: string): Promise<string[]|undefined>` - Return only the
   keys from the `Map`.
+* `mapGetValues(key: string, keys: string[]): Promise<any[]>` - Return the values of
+  the requested keys.
 * `mapGetFields(key: string): Promise<Map<string, any>|undefined>` - Return
   the entire `Map`.
 * `mapAddFields(key: string, fields: { key: string, value: any }[]): Promise<number>` - Add one or more fields to the `Map`, replacing duplicate
@@ -267,7 +269,7 @@ for use cases that require special removal or update rules, we've got you covere
 ### Expired Objects
 
 ```
-await ram64.setWithOptions(key, { value: 1, expAt: Date.now() + 1000 })`
+await ram64.setWithOptions(key, { value: 1, expAt: Date.now() + 1000 });
 ```
 
 Objects do not expire unless explicitly set via operations like
@@ -279,7 +281,7 @@ expired object will never be returned.
 ### Stale Objects
 
 ```
-await ram64.setWithOptions(key, { value: 1, staleAt: Date.now() + 1000 })`
+await ram64.setWithOptions(key, { value: 1, staleAt: Date.now() + 1000 });
 ```
 
 Unlike **expired** objects, stale objects are never actually removed from the shard.

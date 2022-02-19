@@ -330,6 +330,13 @@ export class RAM64 {
         }) as Promise<string[]>;
     }
 
+    mapGetValues(key: string, keys: string[]): Promise<any[]> {
+        return processRequest(this, {
+            commandIndex: commandsDict.mapGetValues.index,
+            key, args: { keys }
+        }) as Promise<any[]>;
+    }
+
     mapGetFields(key: string): Promise<Map<string, any>|undefined> {
         return processRequest(this, {
             commandIndex: commandsDict.mapGetFields.index,

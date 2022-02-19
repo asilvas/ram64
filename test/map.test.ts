@@ -25,6 +25,28 @@ describe('mapGetKeys', () => {
     });
 });
 
+describe('mapGetValues', () => {
+    it('undefined value', async () => {
+        const key = Math.random().toString();
+        const value = await instance.mapGetValues(key, ['gg']);
+        expect(value).toEqual([undefined]);
+    });
+
+    it('full match', async () => {
+        const key = Math.random().toString();
+        await instance.mapAddFields(key, [['a', 1], ['b', 2], ['c', 3]]);
+        const value = await instance.mapGetValues(key, ['b', 'c']);
+        expect(value).toEqual([2, 3]);
+    });
+
+    it('duplicates', async () => {
+        const key = Math.random().toString();
+        await instance.mapAddFields(key, [['a', 1], ['b', 2]]);
+        const value = await instance.mapGetValues(key, ['b', 'b']);
+        expect(value).toEqual([2, 2]);
+    });
+});
+
 describe('mapGetFields', () => {
     it('undefined value', async () => {
         const key = Math.random().toString();
