@@ -15,11 +15,12 @@ describe('connect', () => {
 
     it('spawn worker', () => {
         return new Promise((resolve, reject) => {
-            const worker = instance.spawnWorker('./test/connect-worker.js');
-            worker.on('message', msg => {
-                if (msg === true) {
-                    resolve(msg);
-                    worker.terminate();
+            const worker = instance.spawnWorker('./test/connect-worker.js', {}, {
+                onMessage: (msg: any) => {
+                    if (msg === true) {
+                        resolve(msg);
+                        worker.terminate();
+                    }
                 }
             });
             worker.on('error', reject);
@@ -30,11 +31,12 @@ describe('connect', () => {
     it('can connect from registered worker', () => {
         return new Promise((resolve, reject) => {
             const worker = new Worker('./test/connect-worker.js', { workerData: { connectKey: instance.connectKey } });
-            instance.registerWorker(worker);
-            worker.on('message', msg => {
-                if (msg === true) {
-                    resolve(msg);
-                    worker.terminate();
+            instance.registerWorker(worker, {
+                onMessage: (msg: any) => {
+                    if (msg === true) {
+                        resolve(msg);
+                        worker.terminate();
+                    }
                 }
             });
             worker.on('error', reject);
@@ -45,11 +47,12 @@ describe('connect', () => {
     it('can connect and do simple op from registered worker', () => {
         return new Promise((resolve, reject) => {
             const worker = new Worker('./test/connect-worker.js', { workerData: { connectKey: instance.connectKey, set: true } });
-            instance.registerWorker(worker);
-            worker.on('message', msg => {
-                if (msg === true) {
-                    resolve(msg);
-                    worker.terminate();
+            instance.registerWorker(worker, {
+                onMessage: (msg: any) => {
+                    if (msg === true) {
+                        resolve(msg);
+                        worker.terminate();
+                    }
                 }
             });
             worker.on('error', reject);
@@ -60,16 +63,15 @@ describe('connect', () => {
     it('graceful failure if invalid connectKey', async () => {
         await expect(new Promise((resolve, reject) => {
             const worker = new Worker('./test/connect-worker.js', { workerData: { connectKey: 'gg' } });
-            instance.registerWorker(worker);
-            worker.on('message', msg => {
-                if (isRAM64Message(msg)) return; // ignore
-
-                if (msg === true) {
-                    resolve(msg);
-                    worker.terminate();
-                } else if ('error' in msg) {
-                    reject(new Error(msg.error));
-                    worker.terminate();
+            instance.registerWorker(worker, {
+                onMessage: (msg: any) => {
+                    if (msg === true) {
+                        resolve(msg);
+                        worker.terminate();
+                    } else if ('error' in msg) {
+                        reject(new Error(msg.error));
+                        worker.terminate();
+                    }
                 }
             });
             worker.on('error', reject);

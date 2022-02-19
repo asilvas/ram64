@@ -67,19 +67,25 @@ import { Worker } from 'worker_threads';
 import { startup } from 'ram64';
 
 const ram64 = await startup();
-const worker = ram64.spawnWorker('./worker.js');
+const worker = ram64.spawnWorker('./worker.js', {
+  onMessage: msg => {
+    if (msg?.status === 'done') worker.terminate(); // test complete!
+  }
+});
 // optionally you can spawn your own worker and
 // invoke `ram64.registerWorker(worker)` instead
 ```
 
 ```
 // worker.js
-const { workerData } = require('worker_threads');
+const { workerData, parentPort } = require('worker_threads');
 const { connect } = require('ram64');
 
 connect(workerData.connectKey).then(async ram64 => {
     await ram64.set('hello', 'world');
     const world = await ram64.get('hello');
+
+    parentPort.postMessage({ status: 'done' });
 });
 ```
 
@@ -118,11 +124,18 @@ Methods and properties of the `RAM64` class. All operations are atomic.
   it's **critical** that you only load data from a dataset that was configured with
   the same `shardCount`. Safe to `load` while actively reading/writing to cache,
   at the cost to performance. Key collisions are also safe, and last write wins.
-* `spawnWorker(workerPath: string): Worker` - Spawn your own worker process that you
-  want to `connect` from. This will automatically handle registering the worker,
-  so do not invoke `registerWorker` again.
-* `registerWorker(worker: Worker): void` - If you spawn your own worker but would like
-  to connect to a `RAM64` instance, use this function to wireup the parent to the worker.
+* `spawnWorker(workerPath: string, options: RegisterWorkerOptions = {}): Worker` -
+  Spawn your own worker process that you want to `connect` from. This will
+  automatically handle registering the worker, so do not invoke `registerWorker` again.
+  * `RegisterWorkerOptions.onMessage: (msg: any) => void` - Optionally register to
+    receive worker messages. More convenient than registering yourself as it
+    routes `ram64` events internally and only forwards your own events to you.
+* `registerWorker(worker: Worker, options: RegisterWorkerOptions = {}): void` - If
+  you spawn your own worker but would like to connect to a `RAM64` instance, use this
+  function to wireup the parent to the worker.
+  * `RegisterWorkerOptions.onMessage: (msg: any) => void` - Optionally register to
+    receive worker messages. More convenient than registering yourself as it
+    routes `ram64` events internally and only forwards your own events to you.
 * `registerFunction(fn: RAMFunction): Promise<RAMFunction>` - Register
   a dynamic function that can be executed by operations that support
   it. See **RAMFunction API** for more details.

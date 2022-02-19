@@ -76,3 +76,7 @@ export type ScanResult = {
     keys: string[];
     resumeKey?: string;
 }
+
+export type RegisterWorkerOptions = {
+    onMessage?: (msg: any) => void
+}

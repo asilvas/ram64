@@ -4,13 +4,8 @@ import { processResponse } from './process-response';
 import { MessageToMain, MessageFromMain, MessageFromWorker } from '../types';
 import { commandsDict } from '../commands';
 import { processRequest, Request } from './process-request';
-import { isRAM64Message } from './is-ram64-message';
 
 export function processServerRequest(instance: RAM64, worker: Worker, msg: MessageToMain): void {
-    if (!isRAM64Message(msg)) {
-        return; // ignore non-RAM64 messages
-    }
-
     const { command, requestId, args } = msg;
     switch (command) {
         case 'connect':

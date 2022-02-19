@@ -2,11 +2,12 @@ import { Worker, MessagePort } from 'worker_threads';
 import { commandsDict } from '../commands';
 import { processRequest } from './process-request';
 import { getHash } from '../util/hash';
-import { CacheObject, CacheOptions, MessageToMain, ScanOptions, ScanResult } from '../types';
+import { CacheObject, CacheOptions, MessageToMain, ScanOptions, ScanResult, RegisterWorkerOptions } from '../types';
 import { processServerRequest } from './process-server-request';
 import { processResponse } from './process-response';
 import { RAMFunction } from '../ram-function';
 import { mkdir } from 'fs/promises';
+import { isRAM64Message } from './is-ram64-message';
 
 export type RAM64Options = {
     connectKey: string;
@@ -52,7 +53,7 @@ export class RAM64 {
         return (this.#cacheWorkers as Worker[])?.length > 0;
     }
 
-    spawnWorker(filePath: string, workerData: object = {}): Worker {
+    spawnWorker(filePath: string, workerData: object = {}, options: RegisterWorkerOptions = {}): Worker {
         const worker = new Worker(filePath, {
             workerData: {
                 ...workerData,
@@ -60,12 +61,18 @@ export class RAM64 {
             }
         });
         worker.unref();
-        this.registerWorker(worker);
+        this.registerWorker(worker, options);
         return worker;
     }
 
-    registerWorker(worker: Worker): Worker {
-        worker.on('message', msg => processServerRequest(this, worker, msg as MessageToMain));
+    registerWorker(worker: Worker, options: RegisterWorkerOptions = {}): Worker {
+        worker.on('message', msg => {
+            if (isRAM64Message(msg)) {
+                processServerRequest(this, worker, msg as MessageToMain)
+            } else if (options.onMessage) {
+                options.onMessage.call(this, msg);
+            }        
+        });
 
         return worker;
     }
