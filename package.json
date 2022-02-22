@@ -1,6 +1,6 @@
 {
   "name": "ram64",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Multi-threaded 64bit memory cache database inspired by redis-like features",
   "main": "lib",
   "types": "src",
