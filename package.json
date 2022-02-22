@@ -20,6 +20,7 @@
     "bench:profile": "node --max-old-space-size=50000 --prof tools/bench/index.js",
     "bench:report": "node --prof-process isolate-00000253D5348C70-34736-v8.log > report.txt",
     "build": "swc src --out-dir lib",
+    "prepublish": "npm run build",
     "start": "node tools/bench/index.js",
     "test": "jest",
     "watch": "swc src --out-dir lib -w"
