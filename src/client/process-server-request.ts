@@ -31,7 +31,11 @@ export function processServerRequest(instance: RAM64, worker: Worker, msg: Messa
 
                 return port2;
             });
-            const response: MessageFromMain = { ram64: true, requestId, value: workerPorts };
+            const response: MessageFromMain = {
+                ram64: true,
+                requestId,
+                value: { ports: workerPorts, shardCount: instance.shardCount }
+            };
 
             worker.postMessage(response, [...workerPorts]); // transfer ports to worker
             break;

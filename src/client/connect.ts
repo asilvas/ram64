@@ -32,10 +32,9 @@ export async function connect(connectKey: string): Promise<RAM64> {
         parentPort?.postMessage(req);
     });
 
-    const ports: MessagePort[] = await promise as MessagePort[];
+    const res = await promise as { ports: MessagePort[], shardCount: number };
+    const ports = res.ports as MessagePort[];
+    const shardCount = res.shardCount as number;
 
-    // drop refs
-    ports.forEach(ports => ports.unref());
-
-    return new RAM64({ connectKey, ports });
+    return new RAM64({ connectKey, ports, shardCount });
 }

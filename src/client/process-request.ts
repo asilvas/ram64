@@ -42,7 +42,7 @@ export async function processRequest(instance: RAM64, req: Request|MessageToMain
     } else if (!workerOrPort && resumeKey !== undefined) {
         workerOrPort = instance.workerPorts[Number(resumeKey.split(':')[0])];
     }
-    if (!workerOrPort) throw new Error(`Port not found from '${key}' key`);
+    if (!workerOrPort) throw new Error(`Port not found from '${key || resumeKey}'`);
 
     const requestId = randomString();
 

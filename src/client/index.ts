@@ -13,13 +13,15 @@ export type RAM64Options = {
     connectKey: string;
     workers?: Worker[];
     ports?: MessagePort[];
+    shardCount: number;
 }
 
 export class RAM64 {
-    constructor({ connectKey, workers, ports }: RAM64Options) {
+    constructor({ connectKey, workers, ports, shardCount }: RAM64Options) {
         this.#connectKey = connectKey;
         this.#cacheWorkers = workers;
         this.#ports = ports;
+        this.#shardCount = shardCount;
 
         this.workerPorts.forEach(port => {
             port.unref();
@@ -34,6 +36,7 @@ export class RAM64 {
     #connectKey: string;
     #cacheWorkers?: Worker[];
     #ports?: MessagePort[];
+    #shardCount: number;
  
     get connectKey(): string { return this.#connectKey; }
 
@@ -47,6 +50,14 @@ export class RAM64 {
 
     get workerPorts(): (Worker | MessagePort)[] {
         return this.#cacheWorkers || this.#ports || [];
+    }
+
+    get shardCount(): number {
+        return this.#shardCount;
+    }
+
+    get shardsPerWorker(): number {
+        return Math.ceil(this.shardCount / this.workerPorts.length);
     }
 
     get isMain(): boolean {
@@ -403,5 +414,22 @@ export class RAM64 {
         } while (resumeCb && lastResult.resumeKey && await resumeCb(lastResult));
 
         return { keys: allKeys, resumeKey: lastResult.resumeKey };
+    }
+
+    scanSplit(resumeKeySplits: number): string[] {
+        resumeKeySplits = Math.max(1, Math.min(resumeKeySplits, this.shardCount));
+        const shardsPerResumeKey = Math.ceil(this.shardCount / resumeKeySplits); // evenly split shards across resume keys
+
+        const resumeKeys: string[] = [];
+
+        let currentShard = 0;
+        while (currentShard < this.shardCount) {
+            const maxShardIndex = Math.min(currentShard + shardsPerResumeKey, this.shardCount);
+            const workerIndex = Math.floor(currentShard / this.shardsPerWorker);
+            resumeKeys.push(`${workerIndex}:${currentShard % this.shardsPerWorker}::${maxShardIndex}`);
+            currentShard = maxShardIndex + 1;
+        }
+
+        return resumeKeys;
     }
 }

@@ -236,6 +236,9 @@ Methods and properties of the `RAM64` class. All operations are atomic.
     callback function to evaluate the last result and determine asynchronously
     if scanning should continue. Supplying `resumeCb: () => Promise.resolve(true)`
     will result in returning all keys across all shards.
+* `scanSplit(resumeKeySplits: number): string[]` - Create the desired resumeKeys to
+  split work up across multiple workers. This enables processing large amounts of keys
+  where work is required for each key. See **Scanning** for example usage.
 
 
 ## RAMFunction API
@@ -388,5 +391,45 @@ await ram64.registerFunction(evensAndOddsFn); // cache workers won't know about 
 const { keys } = await ram64.scan({
   filter: evensAndOddsFn, // return all even keys on even shards and odd keys on odd shards
   resumeCb: () => Promise.resolve(true) // grab everything
+});
+```
+
+
+### Scan splits
+
+Create the desired resumeKeys to split work up across multiple workers.
+This enables processing large amounts of keys where work is required for each key.
+
+```
+// main.js
+import { Worker } from 'worker_threads';
+import { startup } from 'ram64';
+
+const WORKERS = 10;
+
+const ram64 = await startup();
+const resumeKeys = ram64.scanSplit(WORKERS);
+// distribute the workload across each of our worker threads
+resumeKeys.forEach(resumeKey => {
+  const worker = ram64.spawnWorker('./worker.js', {
+    workerData: {
+      resumeKey
+    },
+    onMessage: () => worker.terminate()
+  );
+});
+```
+
+```
+// worker.js
+const { workerData, parentPort } = require('worker_threads');
+const { connect } = require('ram64');
+
+connect(workerData.connectKey).then(async ram64 => {
+  const keys = ram64.scan({ resumeKey: workerData.resumeKey, resumeCb: () => Promise.resolve(true) });
+
+  // TODO: do something useful with those keys
+
+  parentPort.postMessage({ status: 'done' });
 });
 ```

@@ -36,7 +36,7 @@ export async function startup({ threadCount = CPU_COUNT, shardCount = DEFAULT_SH
             maxMemory
         }));
 
-        const instance = new RAM64({ connectKey, workers });
+        const instance = new RAM64({ connectKey, workers, shardCount });
 
         // wait until the first message is received from each worker
         return Promise.all(workers.map(worker => new Promise(resolve2 => worker.once('message', resolve2)).then(() => resolve(instance))));

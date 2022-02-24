@@ -1,6 +1,6 @@
 import { CommandFn, CommandOptions } from '../../commands';
 import { get as getFn } from '../functions';
-import { ScanResult } from '../../types';
+import { ScanResult, Shard } from '../../types';
 import { Shards } from '../shards';
 import { RAMFunction } from '../../ram-function';
 import lru from 'tiny-lru';
@@ -17,13 +17,16 @@ export const fn: CommandFn = (opts: CommandOptions): ScanResult => {
     let shardIndex = 0;
     let iterator: IterableIterator<string>|undefined;
     let iteratorKey: string|undefined;
+    let maxShardIndex = Number.MAX_SAFE_INTEGER;
     if (resumeKey) {
         const resumeKeyParts = resumeKey.split(':');
-        shardIndex = parseInt(resumeKeyParts[1], 10);
+        shardIndex = parseInt(resumeKeyParts[1] ?? 0, 10);
         iteratorKey = resumeKeyParts[2] as string;
         iterator = scanCache.get(iteratorKey);
+        maxShardIndex = parseInt(resumeKeyParts[3] || Number.MAX_SAFE_INTEGER, 10); // oddly parseInt returns NaN if Infinity is supplied...
     }
-    let shard = Shards[shardIndex];
+    const maxWorkerShardIndex = maxShardIndex - workerData.shardIndex;
+    let shard: Shard|undefined = Shards[shardIndex];
     if (!shard) {
         throw new Error(`Shard ${shardIndex} does not exist`);
     }
@@ -37,7 +40,7 @@ export const fn: CommandFn = (opts: CommandOptions): ScanResult => {
 
     const keys = [];
     let key: string;
-    let nextResumeKey: string|undefined = resumeKey;
+    let nextResumeKey: string|undefined = void 0;
     do {
         key = iterator.next().value;
         if (key) {
@@ -50,7 +53,7 @@ export const fn: CommandFn = (opts: CommandOptions): ScanResult => {
             }
         } else { // shard out of keys, start iterating next shard
             shardIndex++;
-            shard = Shards[shardIndex];
+            shard = shardIndex <= maxWorkerShardIndex ? Shards[shardIndex] : undefined;
             if (!shard) { // out of shards
                 break;
             }
@@ -65,10 +68,11 @@ export const fn: CommandFn = (opts: CommandOptions): ScanResult => {
 
     if (!nextResumeKey) {
         if (shard) { // if shard exists we can resume using current iterator
-            nextResumeKey = `${workerData.workerIndex}:${shardIndex}:${iteratorKey}`;
+            // exclude maxShardIndex if max int
+            nextResumeKey = `${workerData.workerIndex}:${shardIndex}:${iteratorKey}:${maxShardIndex === Number.MAX_SAFE_INTEGER ? '' : maxShardIndex}`;
         } else { // time to move onto the next worker
             if (workerData.workerIndex + 1 < workerData.workerCount) {
-                nextResumeKey = `${workerData.workerIndex + 1}:0:`;
+                nextResumeKey = `${workerData.workerIndex + 1}:0::${maxShardIndex === Number.MAX_SAFE_INTEGER ? '' : maxShardIndex}`;
             } // else we're done, no more resuming to do
         }
     }
