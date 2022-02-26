@@ -1,6 +1,9 @@
 import { Worker } from 'worker_threads';
 import { WorkerData } from '../types';
 
+// if we ever support native ESM, we can use import.meta.url (via dynamic eval function)
+export const WORKER_PATH = require.resolve('../../lib/worker');
+
 export type CreateWorkerOptions = {    
     connectKey: string;
     workerIndex: number;
@@ -30,7 +33,7 @@ export function createWorker({
         maxMemory
     };
 
-    const worker = new Worker('./lib/worker/index.js', {
+    const worker = new Worker(WORKER_PATH, {
         workerData
     });
 
