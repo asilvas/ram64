@@ -141,6 +141,7 @@ Methods and properties of the `RAM64` class. All operations are atomic.
   it. See **RAMFunction API** for more details.
 * `exists(key: string): Promise<boolean>` - Returns `true` if the key exists.
 * `get(key: string): Promise<any>` - Get the value by key.
+* `getKeyCount(): Promise<number>` - Return the total number of keys across all shards.
 * `getMany(keys: string[]): Promise<any[]>` - Get many values by keys.
 * `getAndSet(key: string, staleFn: (obj: CacheObject) => Promise<CacheObject>): Promise<CacheObject|undefined>` - Get the current value, and if the value is
   stale invoke the stale function to lazily update the cache.

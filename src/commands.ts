@@ -35,6 +35,7 @@ export const commandsDict: Commands = {
     // reads
     'exists': { index: commandIndex++ },
     'get': { index: commandIndex++ },
+    'getKeyCount': { index: commandIndex++ },
     'getSet': { index: commandIndex++ },
     'getWithOptions': { index: commandIndex++ },
     'scan': { index: commandIndex++ },

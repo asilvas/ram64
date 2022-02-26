@@ -142,6 +142,15 @@ export class RAM64 {
         }) as Promise<any>;
     }
 
+    async getKeyCount(): Promise<number> {
+        const keys = await Promise.all(this.workerPorts.map(port => processRequest(this, {
+            workerOrPort: port,
+            commandIndex: commandsDict.getKeyCount.index
+        }))) as number[];
+
+        return keys.reduce((acc, val) => acc + val, 0);
+    }
+
     getMany(keys: string[]): Promise<any[]> {
         return Promise.all(keys.map(key => this.get(key)));
     }

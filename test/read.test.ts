@@ -39,6 +39,25 @@ describe('get', () => {
     });
 });
 
+describe('getKeyCount', () => {
+    it('no keys', async () => {
+        await instance.deleteAll();
+        const value = await instance.getKeyCount();
+        expect(value).toBe(0);
+    });
+
+    it('many keys', async () => {
+        const expectedValue = 100;
+        await instance.deleteAll();
+        await Promise.all(Array.from({ length: expectedValue }).map((v, i) => {
+            const key = Math.random().toString();
+            const expectedValue = Math.random();
+            return instance.set(key, expectedValue);    
+        }));
+        const value = await instance.getKeyCount();
+        expect(value).toBe(expectedValue);
+    });
+});
 
 describe('getMany', () => {
     it('undefined', async () => {
