@@ -96,15 +96,19 @@ connect(workerData.connectKey).then(async ram64 => {
   * `StartupOptions.threadCount: number` (default: `CPU_CORES`) - Number of dedicated
     cache workers to spread load/shards over. Tunable based on your usage, but
     default should generally suffice.
-  * `StartupOptions.shardCount: number` (default `4096`) - The default is typically
+  * `StartupOptions.shardCount: number` (default `100000`) - The default is typically
     sufficient to handle any memory requirements of 2TB and beyond.
   * `StartupOptions.maxMemory: number` - By default **LRU Eviction**
     is not enabled. You must specify a `maxMemory` threshold (in bytes) in
     order for **LRU Eviction** to maintain the desired memory usage across
     the entire process.
-* `connect(connectKey: string): Promise<RAM64>` - Connect to an existing
+  * `StartupOptions.concurrency: number` (default: `50`) - Concurrent operations
+    per client instance. Anything higher will be queued.
+* `connect(connectKey: string, ConnectOptions): Promise<RAM64>` - Connect to an existing
     `RAM64` instance from a worker thread.
   * `connectKey: string` - Required to connect to an existing `RAM64` instance.
+  * `ConnectOptions.concurrency` (default: `50`) - Concurrent operations
+    per client instance. Anything higher will be queued.
 * `isRAM64Message(msg): boolean` - Useful if you need to distinguish between
   `Worker` messages from `RAM64` and your own custom messages.
 * `RAMFunction` - See `RAMFunction API`.

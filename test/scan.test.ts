@@ -91,9 +91,9 @@ describe('scanSplit', () => {
         const resumeKeys = instance.scanSplit(3);
         expect(resumeKeys.length).toBe(3);
         expect(resumeKeys).toEqual([
-            '0:0::1366',
-            '0:1367::2733',
-            '1:686::4096',
+            '0:0::33334',
+            '0:33335::66669',
+            '1:16670::100000',
         ]);
     });
 

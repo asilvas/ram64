@@ -2,8 +2,13 @@ import { MessagePort, parentPort, isMainThread } from "worker_threads";
 import { MessageToMain, MessageFromMain } from '../types';
 import { RAM64 } from ".";
 import { randomString } from '../util/rand';
+import { DEFAULT_CONCURRENCY } from "./startup";
 
-export async function connect(connectKey: string): Promise<RAM64> {
+export type ConnectOptions = {
+    concurrency?: number;
+}
+
+export async function connect(connectKey: string, { concurrency = DEFAULT_CONCURRENCY }: ConnectOptions = {}): Promise<RAM64> {
     if (isMainThread) return Promise.reject(new Error('connect() must be called from a worker thread. Use startup() instead.'));
 
     const req: MessageToMain = {
@@ -36,5 +41,5 @@ export async function connect(connectKey: string): Promise<RAM64> {
     const ports = res.ports as MessagePort[];
     const shardCount = res.shardCount as number;
 
-    return new RAM64({ connectKey, ports, shardCount });
+    return new RAM64({ connectKey, ports, shardCount, concurrency });
 }

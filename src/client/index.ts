@@ -8,20 +8,24 @@ import { processResponse } from './process-response';
 import { RAMFunction } from '../ram-function';
 import { mkdir } from 'fs/promises';
 import { isRAM64Message } from './is-ram64-message';
+import pLimit from 'p-limit';
 
 export type RAM64Options = {
     connectKey: string;
     workers?: Worker[];
     ports?: MessagePort[];
     shardCount: number;
+    concurrency: number;
 }
 
 export class RAM64 {
-    constructor({ connectKey, workers, ports, shardCount }: RAM64Options) {
+    constructor({ connectKey, workers, ports, shardCount, concurrency }: RAM64Options) {
         this.#connectKey = connectKey;
         this.#cacheWorkers = workers;
         this.#ports = ports;
         this.#shardCount = shardCount;
+        this.#concurrency = Math.max(1, concurrency);
+        this.#limit = pLimit(this.#concurrency);
 
         this.workerPorts.forEach(port => {
             port.unref();
@@ -37,6 +41,8 @@ export class RAM64 {
     #cacheWorkers?: Worker[];
     #ports?: MessagePort[];
     #shardCount: number;
+    #concurrency: number;
+    #limit: pLimit.Limit;
  
     get connectKey(): string { return this.#connectKey; }
 
@@ -58,6 +64,14 @@ export class RAM64 {
 
     get shardsPerWorker(): number {
         return Math.ceil(this.shardCount / this.workerPorts.length);
+    }
+
+    get concurrency(): number {
+        return this.#concurrency;
+    }
+
+    get limit(): pLimit.Limit {
+        return this.#limit;
     }
 
     get isMain(): boolean {

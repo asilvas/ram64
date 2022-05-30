@@ -10,11 +10,13 @@ export type StartupOptions = {
     threadCount?: number;
     shardCount?: number;
     maxMemory?: number;
+    concurrency?: number;
 }
 
-export const DEFAULT_SHARD_COUNT = 4096;
+export const DEFAULT_SHARD_COUNT = 100000;
+export const DEFAULT_CONCURRENCY = 50;
 
-export async function startup({ threadCount = CPU_COUNT, shardCount = DEFAULT_SHARD_COUNT, maxMemory }: StartupOptions = {}): Promise<RAM64> {
+export async function startup({ threadCount = CPU_COUNT, shardCount = DEFAULT_SHARD_COUNT, maxMemory, concurrency = DEFAULT_CONCURRENCY }: StartupOptions = {}): Promise<RAM64> {
     if (!isMainThread) throw new Error(`RAM64.startup() must be called from the main thread`);
 
     const connectKey: string = randomString();
@@ -36,7 +38,7 @@ export async function startup({ threadCount = CPU_COUNT, shardCount = DEFAULT_SH
             maxMemory
         }));
 
-        const instance = new RAM64({ connectKey, workers, shardCount });
+        const instance = new RAM64({ connectKey, workers, shardCount, concurrency });
 
         // wait until the first message is received from each worker
         return Promise.all(workers.map(worker => new Promise(resolve2 => worker.once('message', resolve2)).then(() => resolve(instance))));
