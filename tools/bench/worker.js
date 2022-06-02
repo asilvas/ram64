@@ -1,6 +1,5 @@
 const { workerData, parentPort } = require('worker_threads');
 const { connect } = require('../../');
-const pLimit = require('p-limit');
 const { createClient } = require('redis');
 
 const OPERATIONS = 100000;
@@ -24,7 +23,7 @@ const OPS = [
 ];
 
 (async () => {
-    const ram64 = await connect(workerData.connectKey);
+    const ram64 = await connect(workerData.connectKey, { concurrency: workerData.concurrency });
 
     const benchResults = await bench(ram64, workerData.options);
 
@@ -53,14 +52,18 @@ async function BenchOp(ram64, op, { concurrency, redis }) {
         await redisClient.connect();
         await redisClient.flushAll();
     }
-    const limit = pLimit(concurrency);
     const promises = [];
     for (let i = 0; i < OPERATIONS; i++) {
-        promises.push(limit(() => redis ? op.redisFn(redisClient, i) : op.fn(ram64, i)));
+        promises.push(redis ? op.redisFn(redisClient, i) : op.fn(ram64, i));
     }
+    /*const timer = setTimeout(() => {
+        console.log(`${op.name} timeout, workerIndex:${workerData.workerIndex}`);
+    }, 60000);*/
+
     const start = Date.now();
     await Promise.all(promises);
     const duration = Date.now() - start;
+    //clearTimeout(timer);
 
     if (redis) {
         await redisClient.flushAll();

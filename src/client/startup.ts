@@ -14,7 +14,7 @@ export type StartupOptions = {
 }
 
 export const DEFAULT_SHARD_COUNT = 100000;
-export const DEFAULT_CONCURRENCY = 50;
+export const DEFAULT_CONCURRENCY = 40;
 
 export async function startup({ threadCount = CPU_COUNT, shardCount = DEFAULT_SHARD_COUNT, maxMemory, concurrency = DEFAULT_CONCURRENCY }: StartupOptions = {}): Promise<RAM64> {
     if (!isMainThread) throw new Error(`RAM64.startup() must be called from the main thread`);

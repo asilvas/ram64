@@ -26,7 +26,7 @@ export async function processRequest(instance: RAM64, req: Request|MessageToMain
         return; // ignore, not for us
     }
 
-    return instance.limit(() => {
+    function handler() {
         let { workerOrPort, key, resumeKey, keys, commandIndex, args }: Request = req as Request;
 
         if (!workerOrPort && !key && !resumeKey) { // if no worker or key are specified, then we're dealing with a broadcast
@@ -55,5 +55,8 @@ export async function processRequest(instance: RAM64, req: Request|MessageToMain
         workerOrPort.postMessage(res, transferList);
     
         return reqPromise;    
-    });
+    }
+
+    // connect cannot be queued
+    return !req.commandIndex ? handler() : instance.limit(handler);
 }

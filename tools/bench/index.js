@@ -40,7 +40,7 @@ const fs = require('fs/promises');
         { concurrency: 64, cacheThreads: 64*2, clientThreads: 64*2 }, // 1.56M
         { concurrency: 64, cacheThreads: 64*3, clientThreads: 64*3 }, // 1.73M
         { concurrency: 64, cacheThreads: 64*4, clientThreads: 64*4 }, // 2.23M
-        //{ concurrency: 64, cacheThreads: 64, clientThreads: 64*10 }, // 2.1M
+        { concurrency: 0, cacheThreads: 64*4, clientThreads: 64*4 },
 
         { concurrency: 1, clientThreads: 1, redis: true },
         { concurrency: 4, clientThreads: 4, redis: true },
@@ -48,6 +48,7 @@ const fs = require('fs/promises');
         { concurrency: 16, clientThreads: 16, redis: true },
         { concurrency: 32, clientThreads: 32, redis: true },
         { concurrency: 64, clientThreads: 64, redis: true },
+        { concurrency: 0, clientThreads: 64, redis: true },
 
     ];
 
@@ -70,10 +71,11 @@ async function bench(opts = {}) {
         connectKey: ram64.connectKey,
         options: opts
     };
-
+let workers = 0;
     const results = await Promise.all(Array.from({ length: clientThreads }).map((v, i) => {
+        workers++;
         return new Promise((resolve, reject) => {
-            const worker = new Worker(path.join(__dirname, './worker.js'), { workerData });
+            const worker = new Worker(path.join(__dirname, './worker.js'), { workerData: { workerIndex: i, ...workerData } });
             ram64.registerWorker(worker);
             worker.on('message', async result => {
                 if (isRAM64Message(result)) return; // ignore

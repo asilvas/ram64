@@ -25,7 +25,7 @@ export class RAM64 {
         this.#ports = ports;
         this.#shardCount = shardCount;
         this.#concurrency = Math.max(1, concurrency);
-        this.#limit = pLimit(this.#concurrency);
+        this.#limit = this.#concurrency ? pLimit(this.#concurrency) : (handler: Function) => handler();
 
         this.workerPorts.forEach(port => {
             port.unref();
@@ -42,7 +42,7 @@ export class RAM64 {
     #ports?: MessagePort[];
     #shardCount: number;
     #concurrency: number;
-    #limit: pLimit.Limit;
+    #limit: pLimit.Limit | ((handler: Function) => Promise<any>);
  
     get connectKey(): string { return this.#connectKey; }
 
