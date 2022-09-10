@@ -8,17 +8,17 @@ let state = {
     op: 0
 };
 
-setInterval(() => {
+function displayStats() {
     const elapsed = Date.now() - state.start;
     const gOps = (state.op / elapsed) / 1000;
-    const memUsage = process.memoryUsage().heapUsed / 1024 / 1024 / 1024;
+    const memUsage = 0;//(process?.memoryUsage()?.heapUsed || 0) / 1024 / 1024 / 1024;
     const keys = maps.reduce((acc, map) => acc + map.size, 0) / 1000 / 1000;
 
     console.log(`${gOps.toFixed(2)} GOps/sec, ${memUsage.toFixed(2)}GB, ${keys.toFixed(2)}M/keys`);
 
     state.start = Date.now();
     state.op = 0;
-}, 60000).unref();
+}
 
 (async () => {
     while (true) {
@@ -27,6 +27,6 @@ setInterval(() => {
         }
         state.op += SHARDS;
     
-        await (new Promise(resolve => setImmediate(resolve)));
+        displayStats();
     }    
 })();
